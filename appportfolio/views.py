@@ -458,6 +458,7 @@ def entrevistadores(request):
     except EmptyPage:
         entrevistadores = paginator.page(paginator.num_pages)
     context = {'entrevistadores':entrevistadores}
+    print("Hola")
     return render(request, 'entrevistadores.html', context=context)
 
 #########################
