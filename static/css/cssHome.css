@@ -1,0 +1,138 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #1f4e79;
+    font-size: 2.5em;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 10px 0;
+}
+
+/* Centering and Spacing */
+center {
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #286090;
+    border: none;
+}
+
+.navbar a {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: #d9edf7 !important;
+}
+
+/* Header and Banner Styling */
+header {
+    background-color: #1f4e79;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Authentication Section */
+.auth-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-section h1 {
+    color: #1c3d5a;
+}
+
+.auth-section img {
+    border-radius: 50%;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* User Info */
+.user {
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+}
+
+.user img.imgRedonda {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #1f4e79;
+}
+
+/* Font Styling for Authenticated Message */
+.font-message {
+    color: #686868;
+    font-size: 1.3em;
+    font-family: 'Comic Sans MS', Arial, Verdana;
+    font-weight: bold;
+}
+
+/* Buttons */
+button, .btn-primary {
+    background-color: #1f4e79;
+    border-color: #1f4e79;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn-primary:hover {
+    background-color: #143352;
+}
+
+/* Image Styling */
+img {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #286090;
+    color: #d9edf7;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .user img.imgRedonda {
+        width: 60px;
+        height: 60px;
+    }
+
+    .font-message {
+        font-size: 1.1em;
+    }
+}

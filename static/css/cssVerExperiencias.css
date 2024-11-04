@@ -1,0 +1,112 @@
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif; /* Fuente moderna y elegante */
+    background-color: #f0f4f8; /* Fondo claro y suave */
+    color: #333; /* Texto en gris oscuro para buena legibilidad */
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado principal */
+h1, h2, font {
+    font-family: 'Montserrat', sans-serif;
+    color: #444; /* Gris oscuro para los títulos */
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Centro y diseño de la imagen */
+center {
+    margin-top: 50px;
+}
+
+img {
+    border-radius: 10px; /* Bordes redondeados para la imagen */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.05); /* Efecto de zoom sutil */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Más sombra en hover */
+}
+
+/* Tabla de información */
+table.table-bordered {
+    width: 80%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+/* Encabezados y celdas de la tabla */
+td {
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+td:first-child {
+    font-weight: bold;
+    background-color: #ffd700; /* Dorado pastel para títulos */
+    color: #ffffff;
+    text-align: left;
+}
+
+td:last-child {
+    background-color: #e3f6f5; /* Celeste pastel para contenido */
+    text-align: left;
+}
+
+/* Alternancia de colores en las filas */
+tr:nth-child(even) td:last-child {
+    background-color: #f4d1ae; /* Naranja pastel para alternar */
+}
+
+/* Efecto de hover en las filas */
+tr:hover td {
+    background-color: #c0e8e0; /* Verde suave en hover */
+    transition: background-color 0.3s ease;
+}
+
+/* Tipografía especial para el texto grande */
+font {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 28px;
+    color: #f95f62; /* Rosa vibrante */
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Animación sutil al cargar */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+table, font, img {
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    table.table-bordered {
+        width: 100%;
+    }
+
+    td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}

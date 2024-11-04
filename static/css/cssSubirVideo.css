@@ -1,0 +1,95 @@
+/* Estilo general para el body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8; /* Fondo azul claro */
+    color: #1f4e79; /* Azul oscuro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.5em;
+    color: #1f4e79; /* Azul oscuro */
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2em;
+    color: #1f4e79;
+    margin-bottom: 20px;
+}
+
+/* Estilo del formulario */
+form {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #e3f2fd; /* Azul suave */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Botón de subir */
+form button[type="submit"] {
+    background-color: #1f4e79; /* Azul oscuro */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #145a8d; /* Azul un poco más oscuro */
+}
+
+/* Input de archivo */
+form input[type="file"] {
+    color: #1f4e79;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+/* Galería de videos */
+.galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Estilo individual de cada video */
+.video {
+    background-color: #ffffff;
+    border: 1px solid #d1e3f2; /* Borde azul claro */
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 10px;
+    max-width: 320px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.video:hover {
+    transform: scale(1.03); /* Zoom sutil al pasar el cursor */
+}
+
+.video video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Texto de video no disponible */
+.video p {
+    color: #1f4e79;
+    font-weight: bold;
+}

@@ -1,0 +1,76 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/cssNavbar.css' %}">
+
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-light" style="background-color: #F7F9F9 !important;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+		    {% if request.user.is_authenticated %}
+			<a class="navbar-brand" href="/" 
+			   style="padding-top:0px;">
+			<img src="{% static 'images/logo.png' %}" 
+			     height='48' width='48'> 
+			</a>
+			{% endif %}        
+		</div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+			
+			    <!-- bloque 1 usuarios anonimos no autorizados se quedan en la landing Page -->
+			    {% if not request.user.is_authenticated %}
+				    <li><a href="{% url 'home' %}"><font size="5" color="#0000FF">Inicio</font></a></li>
+                    <li><a href="{% url 'sobremi' %}"><font size="5" color="#0000FF">Sobre Mi</font></a></li>
+                    <li><a href="{% url 'habilidades' %}"><font size="5" color="#0000FF">Habilidades</font></a></li>
+				    <li><a href="{% url 'categorias' %}"><font size="5" color="#0000FF">Categorías</font></a></li>
+
+				{% endif %}
+				
+				<!-- bloque 2 usuarios autorizados -->
+				{% if request.user.is_authenticated %}
+					<li><a href="{% url 'home' %}"><font size="5" color="#0000FF">Inicio</font></a></li>
+					<li><a href="{% url 'experiencias' %}"><font size="5" color="#0000FF">Mis Experiencias</font></a></li>
+      		        <li><a href="{% url 'estudios' %}"><font size="5" color="#0000FF">Mis Estudios</font></a></li>
+				    <!--<li><a href="{% url 'habilidades' %}"><font size="5" color="#0000FF">Seguidores</font></a></li>
+				    <li><a href="{% url 'habilidades' %}"><font size="5" color="#0000FF">Seguidos</font></a></li>
+				    <li><a href="{% url 'habilidades' %}"><font size="5" color="#0000FF">Notificaciones</font></a></li>-->
+					<li><a href="{% url 'subir_imagenes' %}"><font size="5" color="#0000FF">Diplomas</font></a></li>
+					<li><a href="{% url 'subir_videos' %}"><font size="5" color="#0000FF">Vídeos</font></a></li>
+					{% if request.user.is_staff %}
+						<li><a href="{% url 'entrevistadores' %}"><font size="5" color="#0000FF">Entrevistadores</font></a></li>
+					{% endif %}
+				{% endif %}
+            </ul>
+			
+			<!-- inicio nuevo bloque para login y register-->
+			<ul class="nav navbar-nav navbar-right">
+			{% if request.user.is_authenticated %}
+				 <li><a href="{% url 'cerrar' %}"><font size="5" color="#0000FF">Cerrar Sesión</font></a></li>
+			{% endif %}
+			
+			{% if not request.user.is_authenticated %}
+			  <a class="btn btn-success" href="{% url 'register' %}" style="margin-top: 7px;">
+			           <font size="5" color="#686868">Registro</font>
+			  </a>
+			{% endif %}
+			
+			</ul>
+			<!-- usuario anónimo -->
+			{% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+			<form class='navbar-form navbar-right' method='POST' action='{% url "habilidades" %}'>
+			{% csrf_token %} <!-- control anti-hacker para formularios-->
+				<!--
+			<div class='form-group'>
+			   <input type='text' class='form-control' name='username' placeholder='nombre del usuario'/>
+			</div>
+			<div class='form-group'>
+			   <input type='password' class='form-control' name='password' placeholder='Clave'/>
+			</div>
+			-->
+			<a href='{% url "login" %}' class="btn btn-primary"
+			        style="color: #686868!important;background-color: #2E9AFE;font-size: 22px;">Entrar</a>
+			</form>
+			{% endif %}
+        </div>
+    </div>
+</nav>
+<br>

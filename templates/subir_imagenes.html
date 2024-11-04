@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<title>PORTFOLIO - CATEGORÍAS</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssImagen.css' %}">
+{% endblock %}
+
+{% block content %}
+<br><br>
+<center>
+  <h1>Subir Imágenes</h1>
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="imagenes" multiple required> <!-- El file crea un array, es un tipo de objetos | Cson el multiple: es para subir varias imágenes -->
+      <label for="comentario">Comentario:</label>
+      <textarea name="comentario" placeholder="Escribe un comentario..."></textarea>
+      <br>
+      <button type="submit">Subir</button>
+  </form>
+
+  <h2>Galería de Imágenes</h2>
+    <div class="galeria">
+        {% for imagen in imagenes %}
+            {% if imagen.imagen %}
+                <div class="imagen">
+                    <img src="{{ imagen.imagen.url }}" alt="{{ imagen.imagen }}">
+                    <!-- Muestra el comentario asociado -->
+                    <p>{{ imagen.comentario }}</p>
+
+                    <!-- Botón para Mostrar el Campo de Entrada para Editar Imagen -->
+                    <button type="button" class="btn btn-primary btn-sm" onclick="mostrarInput({{ imagen.id }})">Editar</button>
+
+                    <!-- Formulario para Editar Imagen y Comentario (Oculto inicialmente) -->
+                    <form method="post" action="{% url 'editar_imagen' imagen.id %}" enctype="multipart/form-data"
+                        style="display: none;" id="form-editar-{{ imagen.id }}">
+                        {% csrf_token %}
+                        <!-- Campo de imagen opcional (sin el atributo required) -->
+                        <input type="file" name="nueva_imagen">
+                        <!-- Campo de texto para comentario -->
+                        <textarea name="comentario">{{ imagen.comentario }}</textarea>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                    </form>
+
+                    <!-- Botón para Eliminar Imagen -->
+                    <form action="{% url 'eliminar_imagen' imagen.id %}" method="post" style="margin-top: 5px;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </div>
+            {% else %}
+                <p>No hay imagen disponible</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    </center>
+{% endblock content %}
+
+{% block scripts %}
+    <!-- JavaScript para mostrar el campo de entrada de archivo y el botón de "Guardar" solo al hacer clic en "Editar" -->
+    <script>
+        function mostrarInput(imagenId) {
+            // Oculta todos los formularios de edición para evitar duplicados visibles
+            document.querySelectorAll('[id^="form-editar-"]').forEach(form => form.style.display = 'none');
+
+            // Muestra el formulario correspondiente a la imagen seleccionada
+            document.getElementById('form-editar-' + imagenId).style.display = 'block';
+        }
+    </script>
+{% endblock %}

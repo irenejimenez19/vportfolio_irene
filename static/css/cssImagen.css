@@ -1,0 +1,100 @@
+/* Estilo general para el body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f0fa; /* Fondo morado claro */
+    color: #5b276f; /* Morado oscuro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.5em;
+    color: #5b276f; /* Morado oscuro */
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2em;
+    color: #5b276f;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo del formulario */
+form {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #f2e7f6; /* Morado suave */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    text-align: center;
+}
+
+/* Botón de subir */
+form button[type="submit"] {
+    background-color: #5b276f; /* Morado oscuro */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #432059; /* Morado más oscuro */
+}
+
+/* Input de archivo */
+form input[type="file"] {
+    color: #5b276f;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+/* Galería de imágenes */
+.galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+/* Estilo individual de cada imagen */
+.imagen {
+    background-color: #ffffff;
+    border: 1px solid #e5d4ea; /* Borde morado claro */
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 10px;
+    max-width: 200px;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.imagen:hover {
+    transform: scale(1.03); /* Zoom sutil al pasar el cursor */
+}
+
+.imagen img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Texto de imagen no disponible */
+.galeria p {
+    color: #5b276f;
+    font-weight: bold;
+    text-align: center;
+}

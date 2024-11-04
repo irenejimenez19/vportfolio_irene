@@ -1,0 +1,102 @@
+/* Estilos generales del body */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilos de la barra de navegación */
+.navbar {
+    background-color: #e0f7fa; /* Azul muy claro */
+    border-bottom: 2px solid #0097a7; /* Azul más oscuro */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+/* Estilo del contenedor */
+.container-fluid {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Estilo de los elementos de la barra de navegación */
+.navbar-nav > li {
+    position: relative;
+}
+
+/* Estilo de los enlaces */
+.navbar-nav > li > a {
+    color: #00796b; /* Azul medio para el texto */
+    font-size: 18px;
+    padding: 15px 20px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+/* Cambios al pasar el ratón sobre los enlaces */
+.navbar-nav > li > a:hover {
+    color: #ffffff; /* Texto blanco al pasar el ratón */
+    background-color: #00796b; /* Fondo azul medio al pasar el ratón */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilo para el botón de registro */
+.btn-success {
+    background-color: #4db6ac; /* Verde azulado */
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Cambios al pasar el ratón sobre el botón de registro */
+.btn-success:hover {
+    background-color: #009688; /* Verde azulado más oscuro */
+}
+
+/* Estilo del botón "Entrar" */
+.btn-primary {
+    background-color: #0288d1; /* Azul claro */
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+/* Cambios al pasar el ratón sobre el botón "Entrar" */
+.btn-primary:hover {
+    background-color: #0277bd; /* Azul más oscuro */
+}
+
+/* Estilo para la imagen del logo */
+.navbar-header img {
+    height: 48px;
+    width: 48px;
+}
+
+/* Estilos del formulario en la barra de navegación */
+.navbar-form {
+    display: flex;
+    align-items: center;
+}
+
+/* Espaciado en el formulario */
+.navbar-form .form-group {
+    margin-right: 10px;
+}
+
+/* Estilos para campos de entrada */
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    border: 1px solid #b2ebf2; /* Azul claro */
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+/* Cambios al enfocar los campos de entrada */
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #00796b; /* Azul medio */
+    outline: none;
+}

@@ -1,0 +1,104 @@
+/* Estilos generales */
+body {
+    background-color: #e0f7fa; /* Azul claro para el fondo */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    border-top: 5px solid #0277bd; /* Azul más oscuro para el borde superior */
+}
+
+h2 {
+    color: #01579b; /* Tono azul oscuro */
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #81d4fa; /* Azul suave para el separador */
+    margin: 20px 0;
+}
+
+/* Estilos del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 16px;
+    color: #0277bd; /* Azul intenso para los textos */
+    text-align: left;
+    width: 100%;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #81d4fa; /* Azul suave para los bordes */
+    border-radius: 8px;
+    font-size: 16px;
+    color: #01579b;
+    background-color: #e1f5fe; /* Fondo azul claro para los inputs */
+    box-sizing: border-box;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #0288d1; /* Azul más intenso al hacer foco */
+    outline: none;
+    background-color: #ffffff; /* Fondo blanco al hacer foco */
+}
+
+button {
+    background-color: #0288d1; /* Botón azul medio */
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0277bd; /* Azul más oscuro al pasar el cursor */
+}
+
+/* Estilo para mensajes de error */
+p {
+    color: #ff5252; /* Rojo para los mensajes de error */
+    font-size: 14px;
+    margin-top: -10px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 576px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<title>PORTFOLIO - VÍDEOS</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssSubirVideo.css' %}">
+{% endblock %}
+
+{% block content %}
+<br><br>
+<center>
+  <h1>Subir Vídeos</h1>
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="videos" multiple required>
+      <label for="comentario">Comentario:</label>
+      <textarea name="comentario" placeholder="Escribe un comentario..."></textarea>
+      <br>
+      <button type="submit">Subir</button>
+  </form>
+
+  <h2>Galería de Videos</h2>
+    <div class="galeria">
+        {% for video in videos %}
+            <div class="video">
+                {% if video.video %}
+                    <video width="320" height="240" controls>
+                        <source src="{{ video.video.url }}" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+
+                    <!-- Muestra el comentario asociado -->
+                    <p>{{ video.comentario }}</p>
+
+                    <!-- Botón para Mostrar el Campo de Entrada para Editar Video -->
+                    <button type="button" class="btn btn-primary btn-sm" onclick="mostrarInput({{ video.id }})">Editar</button>
+
+                    <!-- Formulario para Editar Video y Comentario (Oculto inicialmente) -->
+                    <form method="post" action="{% url 'editar_video' video.id %}" enctype="multipart/form-data"
+                        style="display: none;" id="form-editar-{{ video.id }}">
+                        {% csrf_token %}
+                        <!-- Campo de archivo opcional (sin required) -->
+                        <input type="file" name="nuevo_video">
+                        <!-- Campo para editar el comentario -->
+                        <textarea name="comentario">{{ video.comentario }}</textarea>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                    </form>
+
+                    <!-- Botón para Eliminar Video -->
+                    <form action="{% url 'eliminar_video' video.id %}" method="post" style="margin-top: 5px;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+
+                {% else %}
+                    <p>No hay video disponible</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</center>
+{% endblock content %}
+
+{% block scripts %}
+    <!-- JavaScript para mostrar el campo de entrada de archivo y el botón de "Guardar" solo al hacer clic en "Editar" -->
+    <script>
+        function mostrarInput(videoId) {
+            // Oculta todos los formularios de edición para evitar duplicados visibles
+            document.querySelectorAll('[id^="form-editar-"]').forEach(form => form.style.display = 'none');
+
+            // Muestra el formulario correspondiente a el video seleccionada
+            document.getElementById('form-editar-' + videoId).style.display = 'block';
+        }
+    </script>
+{% endblock %}

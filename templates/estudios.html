@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<title>PORTFOLIO - ESTUDIOS</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/cssEstudios.css' %}"> 
+ {% endblock %}
+
+ {% block content %}
+
+ <br><br><br><br>
+  <center>
+  <font color="#686868" size="5" face="Comic Sans MS,Arial,Verdana">ESTUDIOS OBTENIDOS</font>
+   <br>
+  <img src="{% static 'images/niña.png'%}" height='340' width='390'>
+  </center>
+
+ {% if not request.user.is_authenticated %}
+     <h2>ANÓNIMO</h2>
+ {% endif %}
+
+ {% if request.user.is_authenticated %}
+     <h2>USUARIO REGISTRADO</h2>
+ {% endif %}
+
+<font size="3">
+<table class="table table-bordered">
+	<thead>
+        <tr>
+			<th bgcolor="#F5DA81">ID</th>
+			<th bgcolor="#F5DA81">TITULACIÓN</th>
+            <th bgcolor="#F5DA81">FECHA INICIO</th>
+            <th bgcolor="#F5DA81">FECHA FIN</th>
+            <th bgcolor="#F5DA81">NOTA MEDIA</th>
+            <th bgcolor="#F5DA81">LUGAR ESTUDIO</th>
+            <th bgcolor="#F5DA81">NOMBRE LUGAR</th>
+            <th bgcolor="#F5DA81">CIUDAD</th>
+            <th bgcolor="#F5DA81">PRESENCIAL</th>
+            <th bgcolor="#F5DA81">OBSERVACIONES</th>
+			<th colspan="3" style="text-align:center;" bgcolor="#AAF5AA">OPERACIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in lista_estudios %}
+            <tr>
+				<td> {{ r.id }} </td>
+                <td> {{ r.titulacion }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.fechaInicio }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.fechaFin }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.notaMedia }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.lugarEstudio }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.nombreLugar }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.ciudad }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.presencial }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                <td> {{ r.observaciones }} </td> <!-- caracteres que queremos que salgan del 0 al 12 -->
+                    <form action="" method="post">
+                    {% csrf_token %} <!-- proteger contra los hackers -->
+                        <td><a class='btn btn-primary btn-sm' href="{% url 'home' %}">VER</a></td>
+                        <td><a class='btn btn-success btn-sm' href="{% url 'home' %}">EDITAR</a></td>
+                        <td><a class='btn btn-danger btn-sm'  href="{% url 'home' %}">ELIMINAR</a></td>
+                    </form>
+          </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</font>
+     
+<center>
+    <font size="3">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th bgcolor="#F5DA81">NÚMERO DE REGISTROS</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td> {{ numregistros }} </td>
+              </tr>
+        </tbody>
+    </table>
+    </font>
+</center>
+
+{% if lista_estudios.has_other_pages %} <!-- mientras tenga páginas -->
+<font size="4">
+  <ul class="pagination">
+    {% if lista_estudios.has_previous %} <!-- para saber que puede ir para atrás porque tiene páginas previas -->
+        <!-- te manda a la página anterior -->
+        <!--                                                        este símbolo: << -->
+    <li><a href="?page={{ lista_estudios.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li> <!-- lo pone en gris sino hay más -->
+    {% endif %}
+    {% for i in lista_estudios.paginator.page_range %} <!-- ya sabe el nº real de páginas que tiene que recorrer -->
+      {% if reservas.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> <!-- current: te va diciendo el nº -->
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li> <!-- hace la acción o hace la acción oara ir a otra página -->
+      {% endif %}
+    {% endfor %}
+    {% if lista_estudios.has_next %}
+      <li><a href="?page={{ lista_estudios.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul> <!-- lista -->
+</font>
+{% endif %}
+
+
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<title>PORTFOLIO</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssHabilidades.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+ <br><br><br><br>
+ <center>
+ <h1>ENTREVISTADORES</h1>
+ <table border="1" class="table table-bordered">
+     <thead>
+        <tr>
+            <th bgcolor="aqua">ID</th>
+            <th bgcolor="aqua">AVATAR</th>
+            <th bgcolor="aqua">EMPRESA</th>
+            <th bgcolor="aqua">FECHA ENTREVISTA</th>
+            <th bgcolor="aqua">CONECTADO</th>
+            <th bgcolor="aqua">SELECCIONADO</th>
+            <th bgcolor="aqua">USUARIO</th>
+            <th colspan="3" style="text-align:center;" bgcolor="#AAF5AA">OPERACIONES</th>
+        </tr>
+     </thead>
+     <tbody>
+        {% for r in entrevistadores %}
+        <tr>
+            <td> {{ r.id }} </td>
+            <td> {{ r.avatar }} </td>
+            <td> {{ r.empresa }} </td>
+            <td> {{ r.fecha_entrevista }} </td>
+            <td> {{ r.conectado }} </td>
+            <td> {{ r.seleccionado }} </td>
+            <td> {{ r.user }} </td>
+                <form action="" method="post">
+                {% csrf_token %} <!-- proteger contra los hackers -->
+                    <td><a class='btn btn-primary btn-sm' href="{% url 'ver_habilidad' id=r.id %}">VER</a></td>
+                    <td><a class='btn btn-success btn-sm' href="{% url 'editar_habilidad' habi_id=r.id %}">EDITAR</a></td>
+                    <td><a class='btn btn-danger btn-sm'  href="{% url 'eliminarHabilidad' pk=r.id %}">ELIMINAR</a></td>
+                </form>
+        </tr>
+        {% endfor %}
+     </tbody>
+ </table>
+ </center>
+ 
+ {% if entrevistadores.has_other_pages %} <!-- mientras tenga páginas -->
+<font size="4">
+  <ul class="pagination">
+    {% if entrevistadores.has_previous %} <!-- para saber que puede ir para atrás porque tiene páginas previas -->
+        <!-- te manda a la página anterior -->
+        <!--                                                        este símbolo: << -->
+    <li><a href="?page={{ entrevistadores.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li> <!-- lo pone en gris sino hay más -->
+    {% endif %}
+    {% for i in entrevistadores.paginator.page_range %} <!-- ya sabe el nº real de páginas que tiene que recorrer -->
+      {% if reservas.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> <!-- current: te va diciendo el nº -->
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li> <!-- hace la acción o hace la acción oara ir a otra página -->
+      {% endif %}
+    {% endfor %}
+    {% if entrevistadores.has_next %}
+      <li><a href="?page={{ entrevistadores.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul> <!-- lista -->
+</font>
+
+<center>
+  <a class="btn btn-primary" href="{% url 'crear_habilidad' %}">AÑADIR</a>
+</center>
+{% endif %}
+
+{% endblock content %}
