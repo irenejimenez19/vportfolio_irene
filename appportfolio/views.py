@@ -20,6 +20,10 @@ from django.contrib.auth.models import User
 
 from django.conf import settings
 
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.contrib import messages
+
 import urllib
 
 # Create your views here.
@@ -566,3 +570,26 @@ def editar_video(request, video_id):
         return redirect('subir_videos')  # Redirige a la galería de videos
 
     return redirect('subir_videos')
+
+#########################
+#      13 CONTACTO
+#########################
+
+def contacto(request):
+    if request.method == "POST":
+        nombre = request.POST.get("nombre")
+        email = request.POST.get("email")
+        asunto = request.POST.get("asunto")
+        mensaje = request.POST.get("mensaje")
+
+        context = {'nombre': nombre, 'email': email, 'asunto': asunto, 'mensaje': mensaje}
+        template = render_to_string('email_template.html', context=context)
+
+        email = EmailMessage(asunto, template, settings.EMAIL_HOST_USER, ['ireeneejimenezz@gmail.com'])
+
+        email.fail_silenty = False  # Que no marque error en gmail
+        email.send()
+
+        messages.success(request, 'Se ha enviado tu email')
+        return redirect('home')
+    return render(request, 'correo.html')

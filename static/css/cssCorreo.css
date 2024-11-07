@@ -1,0 +1,103 @@
+/* Estilos Generales */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #1A1A1A;
+    background-color: #F2F6FA; /* Azul muy claro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    color: #2D5C8A; /* Azul oscuro */
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+/* Estilo del Formulario */
+form {
+    max-width: 450px;
+    margin: 2rem auto;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E3E9F1; /* Línea suave */
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 0.85rem;
+    margin: 1rem 0;
+    border: 1px solid #CBD5E0; /* Borde gris claro */
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #334E68;
+    background-color: #F4F7FB;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form textarea:focus {
+    border-color: #5A9BD5; /* Azul de enfoque */
+    background-color: #E8F1FB;
+    outline: none;
+}
+
+form button[type="submit"] {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #3A7CA5; /* Azul vibrante */
+    border: none;
+    border-radius: 6px;
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #2D5C8A; /* Azul más oscuro al pasar */
+}
+
+/* Mensaje de éxito */
+.alert-success {
+    max-width: 450px;
+    margin: 1.5rem auto;
+    padding: 1rem;
+    color: #155724;
+    background-color: #D1E7DD; /* Verde claro */
+    border: 1px solid #B7DFCF;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Centro de Contenidos */
+center {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #4A4A4A;
+}
+
+/* Placeholder Styling */
+input::placeholder, textarea::placeholder {
+    color: #A0AEC0; /* Gris claro para el placeholder */
+}
+
+/* Otros ajustes */
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: #6C757D; /* Gris medio cuando se hace foco */
+}
+
+/* Ajustes para el Textarea */
+form textarea {
+    height: 100px;
+    resize: vertical;
+}

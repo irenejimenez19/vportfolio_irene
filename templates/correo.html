@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<title>PORTFOLIO - CATEGORÍAS</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssCorreo.css' %}">
+{% endblock %}
+
+{% block content %}
+    <center>
+    <br><br><br>
+    <!--<font color="#686868" size="6" face="Comic Sans MS,Arial,Verdana">ENVIAR EMAIL</font>-->
+    </center>
+    <br>
+
+    <h1>ENVIAR EMAIL</h1>
+    <form method="POST" action="{% url 'contacto' %}">
+        {% csrf_token %}
+        <input type="text" name="nombre" placeholder="nombre"><br>
+        <input type="text" name="email" placeholder="email"><br>
+        <input type="text" name="asunto" placeholder="asunto"><br>
+        <input type="text" name="mensaje" placeholder="mensaje"><br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if not request.user.is_authenticated %}
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+    {% endif %}
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock %}
