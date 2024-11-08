@@ -24,6 +24,10 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
 
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
+
 import urllib
 
 # Create your views here.
@@ -572,7 +576,7 @@ def editar_video(request, video_id):
     return redirect('subir_videos')
 
 #########################
-#      13 CONTACTO
+#      13. CONTACTO
 #########################
 
 def contacto(request):
@@ -593,3 +597,55 @@ def contacto(request):
         messages.success(request, 'Se ha enviado tu email')
         return redirect('home')
     return render(request, 'correo.html')
+
+#########################
+#   14. LISTAR ENTREVI.
+#########################
+
+def listar_entrevistadores(request):
+    entrevistadores = Entrevistador.objects.all()
+    return render(request, 'listar_entrevistadores.html', {'entrevistadores':entrevistadores})
+
+#########################
+#     15. GENERAR PDF
+#########################
+
+def generar_pdf(request, entrevistador_id):
+    entrevistador = Entrevistador.objects.get(id=entrevistador_id) # select * from Entrevistador where id=xx
+
+    # Crear una respuesta HTTP con contenido tipo PDF
+    response = HttpResponse(content_type='application/pdf') # Para indicarle que es una página de formato PDF
+    # f': para que pueda coger lo que hay dentro de las llaves que hay entre las comillas
+    #                                 para mezclar variables con parte fija
+    response['Content-Disposition'] = f'attachment; filename="entrevistador_{entrevistador.id}.pdf"' # Es el nombre que se le va a poner al PDF
+
+    # Crear el objeto canvas de ReportLab
+    p = canvas.Canvas(response, pagesize=letter) # El lienzo, lo que es el cuadrado del archivo PDF
+
+    # Configuración del título
+    p.setFont("Helvetica-Bold", 16)
+    p.setFillColor(colors.darkblue)
+    p.drawCentredString(300, 770, "Reporte de Entrevistador") # Para centrar el título
+
+    # Volver al tamaño de fuente normal
+    p.setFont("Helvetica", 12)
+    p.setFillColor(colors.black)
+
+    # Datos del entrevistador
+    p.drawString(100, 720, f"ID: {entrevistador.id}")
+    p.drawString(100, 700, f"Empresa: {entrevistador.empresa or 'N/A'}")
+    p.drawString(100, 680, f"Fecha de Entrevista: {entrevistador.fecha_entrevista or 'N/A'}")
+    p.drawString(100, 660, f"Conectado: {'Sí' if entrevistador.conectado else 'No'}")
+    p.drawString(100, 640, f"Seleccionado: {'Sí' if entrevistador.seleccionado else 'No'}")
+    p.drawString(100, 620, f"Usuario: {entrevistador.user.username if entrevistador.user else 'N/A'}")
+
+    # Añadir avatar si existe
+    if entrevistador.avatar:
+        avatar_path = entrevistador.avatar.path
+        p.drawImage(avatar_path, 100, 500, width=100, height=100)
+
+    # Guardar el PDF
+    p.showPage()
+    p.save()
+
+    return response

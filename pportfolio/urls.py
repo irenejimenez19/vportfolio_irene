@@ -46,6 +46,8 @@ urlpatterns = [
     path('video/editar/<int:video_id>/', views.editar_video, name='editar_video'),
     path('video/eliminar/<int:video_id>/', views.eliminar_video, name='eliminar_video'),
     path('contacto/', views.contacto, name='contacto'),
+    path('listar_entrevistadores/', views.listar_entrevistadores, name='listar_entrevistadores'),
+    path('generar_pdf/<int:entrevistador_id>/', views.generar_pdf, name='generar_pdf'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
