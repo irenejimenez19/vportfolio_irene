@@ -173,3 +173,59 @@ class Video(models.Model):
 
     def __str__(self):
         return '%s,%s,%s' % (self.id, self.video, self.comentario)
+
+################################################
+# TABLA 9 - Curriculum
+################################################
+
+class Curriculum(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField("Nombre", max_length=25, null=True, blank=True)
+    apellido1 = models.CharField("Primer apellido", max_length=25, null=True, blank=True)
+    apellido2 = models.CharField("Segundo apellido", max_length=25, null=True, blank=True)
+    email = models.EmailField("Email", max_length=40, null=True, blank=True)
+    telefono = models.CharField("Teléfono", max_length=9, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Curriculum"
+        verbose_name_plural = "Curriculums"
+        ordering = ['id']
+
+    def __str__(self):
+        return '%s,%s,%s,%s,%s,%s' % (self.id, self.nombre, self.apellido1, self.apellido2, self.email, self.telefono)
+
+################################################
+# TABLA 10 - Detalle Curriculum Estudio
+################################################
+
+class DetalleCurriculumEstudio(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    estudio = models.ForeignKey(Estudio, related_name='estudio_detalle', null=True, blank=True, on_delete=models.PROTECT)
+    curriculum = models.ForeignKey(Curriculum, related_name='curriculum_detalleEst', null=True, blank=True, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = 'DetalleCurriculumEstudio' #puede ser otro nombre
+        verbose_name_plural = 'DetalleCurriculumEstudios'
+        ordering = ['id']
+
+    def __str__(self):
+        return '%s,%s,%s' % (self.id, self.estudio, self.curriculum)
+
+################################################
+# TABLA 11 - Detalle Curriculum Experiencia
+################################################
+
+class DetalleCurriculumExperiencia(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    experiencia = models.ForeignKey(Experiencia, related_name='experiencia_detalle', null=True, blank=True, on_delete=models.PROTECT)
+    curriculum = models.ForeignKey(Curriculum, related_name='curriculum_detalleExp', null=True, blank=True, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = 'DetalleCurriculumExperiencia' #puede ser otro nombre
+        verbose_name_plural = 'DetalleCurriculumExperiencias'
+        ordering = ['id']
+
+    def __str__(self):
+        return '%s,%s,%s' % (self.id, self.experiencia, self.curriculum)

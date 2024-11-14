@@ -22,6 +22,7 @@
                     <li><a href="{% url 'sobremi' %}"><font size="3" color="#0000FF">Sobre Mi</font></a></li>
                     <li><a href="{% url 'habilidades' %}"><font size="3" color="#0000FF">Habilidades</font></a></li>
 				    <li><a href="{% url 'categorias' %}"><font size="3" color="#0000FF">Categorías</font></a></li>
+					<li><a href="{% url 'generar_curriculum' %}"><font size="3" color="#0000FF">Curriculum</font></a></li>
 
 				{% endif %}
 				
@@ -35,10 +36,10 @@
 				    <li><a href="{% url 'habilidades' %}"><font size="5" color="#0000FF">Notificaciones</font></a></li>-->
 					<li><a href="{% url 'subir_imagenes' %}"><font size="2" color="#0000FF">Diplomas</font></a></li>
 					<li><a href="{% url 'subir_videos' %}"><font size="2" color="#0000FF">Vídeos</font></a></li>
-					<li><a href="{% url 'contacto' %}"><font size="2" color="#0000FF">Enviar email</font></a></li>
 					{% if request.user.is_staff %}
 						<li><a href="{% url 'entrevistadores' %}"><font size="2" color="#0000FF">Entrevistadores</font></a></li>
 						<li><a href="{% url 'listar_entrevistadores' %}"><font size="2" color="#0000FF">Informe entrevistas</font></a></li>
+						<li><a href="{% url 'contacto' %}"><font size="2" color="#0000FF">Enviar email</font></a></li>
 					{% endif %}
 				{% endif %}
             </ul>

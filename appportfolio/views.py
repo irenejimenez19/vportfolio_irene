@@ -649,3 +649,106 @@ def generar_pdf(request, entrevistador_id):
     p.save()
 
     return response
+
+#########################
+#   16. GENERAR CV
+#########################
+
+def generar_curriculum(request):
+    personal = Personal.objects.get(id=1)
+
+    if request.method == "POST":
+        c = Curriculum()
+
+        c.nombre = personal.nombre
+        c.apellido1 = personal.apellido1
+        c.apellido2 = personal.apellido2
+        c.email = request.POST.get("email")
+        c.telefono = request.POST.get("telefono")
+
+        c.save()
+
+        return redirect('ver_curriculum', id=personal.id)
+
+    return render(request, 'generar_curriculum.html')
+
+#########################
+#   17. VER CV
+#########################
+
+def ver_curriculum(request, id):
+    curriculum = get_object_or_404(Curriculum, id=id)
+    estudios = DetalleCurriculumEstudio.objects.filter(curriculum=curriculum)
+    experiencias = DetalleCurriculumExperiencia.objects.filter(curriculum=curriculum)
+    context = {'curriculum':curriculum,'estudios':estudios,'experiencias':experiencias}
+    return render(request, 'ver_curriculum.html', context)
+
+#########################
+#   18. GENERAR PDF CV
+#########################
+
+def generar_pdfCV(request, id):
+    curriculum = get_object_or_404(Curriculum, id=id)
+    estudios = DetalleCurriculumEstudio.objects.filter(curriculum=curriculum)
+    experiencias = DetalleCurriculumExperiencia.objects.filter(curriculum=curriculum)
+
+    # Crear la respuesta HttpResponse con tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="curriculum_{curriculum.nombre}_{curriculum.apellido1}.pdf"'
+
+    # Crear un objeto canvas de ReportLab para generar el PDF
+    c = canvas.Canvas(response, pagesize=letter)
+    width, height = letter  # Tamaño de la página
+
+    # Cargar imagen de avatar
+    try:
+        avatar_path = os.path.join(settings.MEDIA_ROOT, "media/niña.png")
+        c.drawImage(avatar_path, width - 150, height - 150, width=100, height=100)
+    except Exception as e:
+        print(f"No se pudo cargar la imagen: {e}")
+        pass  # Si no se encuentra la imagen, el PDF se generará sin ella
+
+    # Título del curriculum en color
+    c.setFont("Helvetica-Bold", 20)
+    c.setFillColor(colors.HexColor("#4BB8E8"))
+    c.drawString(100, height - 100, f"Curriculum de {curriculum.nombre} {curriculum.apellido1}")
+
+    # Información de contacto
+    c.setFont("Helvetica", 12)
+    c.setFillColor(colors.HexColor("#30639F"))
+    c.drawString(100, height - 130, f"Nombre: {curriculum.nombre}")
+    c.drawString(100, height - 130, f"Primer apellido: {curriculum.apellido1}")
+    c.drawString(100, height - 130, f"Segundo apellido: {curriculum.email}")
+    c.drawString(100, height - 130, f"Email: {curriculum.email}")
+    c.drawString(100, height - 150, f"Teléfono: {curriculum.telefono}")
+
+    # Sección de estudios
+    y_position = height - 200
+    c.setFont("Helvetica-Bold", 14)
+    c.setFillColor(colors.HexColor("#FFB343"))
+    c.drawString(100, y_position, "Estudios:")
+
+    y_position -= 20
+    c.setFont("Helvetica", 12)
+    for estudio in estudios:
+        c.setFillColor(colors.black)
+        c.drawString(100, y_position, f"{estudio.estudio.titulacion} con nota media: {estudio.estudio.notaMedia} ({estudio.estudio.fechaInicio} - {estudio.estudio.fechaFin})")
+        y_position -= 20
+
+    # Sección de experiencia laboral
+    c.setFont("Helvetica-Bold", 14)
+    c.setFillColor(colors.HexColor("#30639F"))
+    c.drawString(100, y_position, "Experiencia laboral:")
+
+    y_position -= 20
+    c.setFont("Helvetica", 12)
+    for experiencia in experiencias:
+        c.setFillColor(colors.black)
+        c.drawString(100, y_position, f"{experiencia.experiencia.empresa} como {experiencia.experiencia.categoria} ({experiencia.experiencia.fecha_inicio} - {experiencia.experiencia.fecha_fin})")
+        y_position -= 20
+
+    # Finalizar el PDF
+    c.showPage()
+    c.save()
+
+    return response

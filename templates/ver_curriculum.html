@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<title>PORTFOLIO</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<!--<link rel="stylesheet" href="{% static 'css/cssCurriculum.css' %}">-->
+{% endblock %}
+
+{% block content %}
+
+<font size="3">
+
+  curriculum = Curriculum()
+
+  <h1>Curriculum de {{curriculum.nombre}} {{curriculum.apellido1}} {{curriculum.apellido2}}</h1>
+
+  <p>Email: {{curriculum.email}}</p>
+  <p>Teléfono: {{curriculum.telefono}}</p>
+
+  <h2>Estudios</h2>
+  <ul>
+    {% for es in estudios %}
+      <li>Nombre: {{ es.estudio.titulacion }}, Nota media: {{ es.estudio.notaMedia }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Experiencias</h2>
+  <ul>
+    {% for ex in experiencias %}
+      <li>Empresa: {{ ex.experiencia.empresa }}, Categoría: {{ ex.experiencia.categoria }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if curriculum.id %}
+    <a href="{% url 'generar_pdfCV' id=curriculum.id %}">Generar PDF</a>
+  {% else %}
+    <p>Error: No se encontró un ID de Curriculum.</p>
+  {% endif %}
+
+
+</font>
+
+{% endblock content %}
