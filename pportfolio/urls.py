@@ -50,6 +50,8 @@ urlpatterns = [
     path('generar_curriculum/', views.generar_curriculum, name='generar_curriculum'),
     path('ver_curriculum/<int:id>/', views.ver_curriculum, name='ver_curriculum'),
     path('generar_pdfCV/<int:id>/', views.generar_pdfCV, name='generar_pdfCV'),
+    path('lista_noticias/', views.lista_noticias, name='lista_noticias'),
+    path('crear_noticia/', views.crear_noticia, name='crear_noticia'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

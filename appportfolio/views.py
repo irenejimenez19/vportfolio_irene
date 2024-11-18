@@ -752,3 +752,30 @@ def generar_pdfCV(request, id):
     c.save()
 
     return response
+
+#########################
+#  19. LISTAR NOTICIAS
+#########################
+
+def lista_noticias(request):
+    noticias = Noticia.objects.all().order_by('-fecha_creacion')
+
+    return render(request, 'lista_noticias.html', {'noticias': noticias})
+
+#########################
+#   20. CREAR NOTICIA
+#########################
+
+def crear_noticia(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        contenido = request.POST.get('contenido')
+        imagen = request.FILES.get('imagen')
+
+        if titulo and contenido:
+            noticia = Noticia.objects.create(titulo=titulo, contenido=contenido, imagen=imagen)
+            return redirect('lista_noticias')
+        else:
+            return HttpResponse("Error: El título y elc ontenido son obligatorios")
+
+    return render(request, 'crear_noticia.html')

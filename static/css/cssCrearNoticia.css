@@ -1,0 +1,111 @@
+/* Estilo general */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #2C3E50;
+    background-color: #F4F9FD; /* Azul muy claro */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 2rem auto;
+}
+
+/* Título principal */
+h1 {
+    color: #2A6DA2; /* Azul oscuro */
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    border-bottom: 2px solid #DCE6F1; /* Línea decorativa */
+    padding-bottom: 0.5rem;
+}
+
+/* Etiquetas del formulario */
+label {
+    color: #3B88C3; /* Azul intermedio */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Campos de entrada */
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #DCE6F1;
+    border-radius: 5px;
+    background-color: #F9FBFD; /* Azul muy claro */
+    transition: border 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+input[type="file"]:focus {
+    border: 1px solid #3B88C3; /* Azul intermedio */
+    outline: none;
+}
+
+/* Botón principal */
+button.btn-success {
+    background-color: #3B88C3; /* Azul intermedio */
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button.btn-success:hover {
+    background-color: #2A6DA2; /* Azul oscuro */
+}
+
+/* Botón secundario */
+a.btn-secondary {
+    display: inline-block;
+    background-color: #DCE6F1; /* Azul claro */
+    color: #2C3E50; /* Gris oscuro */
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+a.btn-secondary:hover {
+    background-color: #B0CDE6; /* Azul más oscuro */
+    color: white;
+}
+
+/* Botón de subir imagen */
+input[type="file"] {
+    color: #2C3E50; /* Texto gris oscuro */
+    cursor: pointer;
+    padding: 0.4rem;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+}

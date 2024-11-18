@@ -229,3 +229,17 @@ class DetalleCurriculumExperiencia(models.Model):
 
     def __str__(self):
         return '%s,%s,%s' % (self.id, self.experiencia, self.curriculum)
+
+################################################
+# TABLA 12 - Noticias
+################################################
+
+class Noticia(models.Model):
+    id = models.AutoField(primary_key=True)
+    titulo = models.CharField("Título", max_length=200, null=True, blank=True)
+    contenido = models.TextField("Contenido", null=True, blank=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    imagen = models.ImageField("Imagen", null=True, blank=True, upload_to="media/")
+
+    def __str__(self):
+        return '%s' % (self.titulo)
