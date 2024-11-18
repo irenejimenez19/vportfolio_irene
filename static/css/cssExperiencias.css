@@ -1,16 +1,27 @@
-/* Estilos generales */
+/* Estilos Generales */
 body {
-    font-family: 'Poppins', sans-serif; /* Fuente moderna */
-    background-color: #f4f4f9; /* Fondo gris suave */
-    color: #333333; /* Texto en gris oscuro */
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdfdfd; /* Fondo claro y limpio */
+    color: #2c3e50; /* Texto gris oscuro */
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
-/* Título y estilo de fuente */
-h1, h2, font {
+/* Títulos */
+h1 {
+    font-size: 36px;
+    color: #2c3e50; /* Texto oscuro elegante */
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+h2, font {
     font-family: 'Poppins', sans-serif;
-    color: #3a3a3a; /* Gris oscuro elegante */
+    color: #3a3a3a; /* Gris oscuro */
     text-align: center;
     font-weight: 600;
     margin-bottom: 20px;
@@ -30,93 +41,96 @@ img {
 }
 
 img:hover {
-    transform: scale(1.05); /* Efecto de zoom sutil al pasar el ratón */
+    transform: scale(1.05); /* Efecto de zoom sutil */
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Tabla de experiencias */
+/* Tablas */
 table.table-bordered {
-    width: 95%;
-    margin: 30px auto;
+    width: 90%;
+    margin: 20px auto;
     border-collapse: collapse;
     background-color: #ffffff;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Encabezados de tabla */
 thead th {
-    background-color: #e0e0e0; /* Gris claro para los encabezados */
-    color: #333333; /* Gris oscuro para el texto */
-    text-align: center;
+    background-color: #8e44ad; /* Malva */
+    color: white;
     padding: 15px;
+    text-align: left;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-tbody td {
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #eeeeee;
-    font-size: 14px;
-    color: #555555;
-}
-
-/* Alternancia de color en las filas */
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Gris muy claro */
-}
-
-tbody tr:hover {
-    background-color: #f0f0f0; /* Efecto de hover suave */
+tbody tr {
     transition: background-color 0.3s ease;
 }
 
-/* Botones personalizados */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alterna filas con fondo gris claro */
+}
+
+tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+    color: #34495e; /* Texto oscuro */
+}
+
+tbody tr:hover {
+    background-color: #f0e5f5; /* Fondo malva suave en hover */
+}
+
+tbody td a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #8e44ad; /* Malva */
+    transition: color 0.3s ease;
+}
+
+tbody td a:hover {
+    color: #1abc9c; /* Turquesa */
+}
+
+/* Botones */
 .btn {
-    border-radius: 5px;
+    border-radius: 20px;
+    padding: 10px 20px;
     font-size: 14px;
-    padding: 8px 12px;
-    margin: 0 3px;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 5px;
 }
 
 .btn-primary {
     background-color: #4a90e2; /* Azul sobrio */
-    border-color: #4a90e2;
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #3a7bd5; /* Más oscuro al pasar el ratón */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-.btn-danger {
-    background-color: #d9534f; /* Rojo elegante */
-    border-color: #d9534f;
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: #c9302c;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #3a7bd5; /* Azul más oscuro */
 }
 
 .btn-success {
-    background-color: #5cb85c; /* Verde elegante */
-    border-color: #5cb85c;
+    background-color: #2ecc71; /* Verde */
     color: white;
 }
 
 .btn-success:hover {
-    background-color: #4cae4c;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #27ae60; /* Verde oscuro */
+}
+
+.btn-danger {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b; /* Rojo más oscuro */
 }
 
 /* Paginación */
@@ -124,48 +138,40 @@ tbody tr:hover {
     display: flex;
     justify-content: center;
     list-style: none;
-    padding: 0;
-    margin-top: 20px;
+    padding: 20px;
 }
 
 .pagination li {
     margin: 0 5px;
 }
 
-.pagination li a {
-    color: #4a90e2;
-    border: 1px solid #4a90e2;
-    padding: 8px 12px;
+.pagination a {
+    color: #4a90e2; /* Azul */
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 16px;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.pagination li a:hover {
-    background-color: #4a90e2;
+.pagination a:hover {
+    background-color: #1abc9c; /* Turquesa */
     color: white;
 }
 
-.pagination li.active span {
-    background-color: #4a90e2;
+.pagination .disabled span {
+    color: #ccc;
+}
+
+.pagination .active span {
+    background-color: #8e44ad; /* Malva */
     color: white;
-    border: 1px solid #4a90e2;
-    padding: 8px 12px;
+    padding: 8px 16px;
     border-radius: 5px;
 }
 
-.pagination li.disabled span {
-    color: #cccccc;
-    border: 1px solid #cccccc;
-    padding: 8px 12px;
-}
-
-/* Sombras en tablas */
-table, th, td {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Links con hover */
+/* Enlaces */
 a {
     color: #4a90e2;
     text-decoration: none;
@@ -182,7 +188,12 @@ a:hover {
         width: 100%;
     }
 
-    th, td {
-        padding: 10px;
+    tbody td {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 28px;
     }
 }
+

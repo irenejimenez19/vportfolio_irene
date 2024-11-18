@@ -1,0 +1,96 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f5faff; /* Azul claro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Títulos */
+h1 {
+    color: #1e3a8a; /* Azul oscuro */
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+/* Formulario */
+form {
+    max-width: 500px;
+    margin: 30px auto;
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Etiquetas */
+form label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1f4e79; /* Azul intermedio */
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+form input[type="email"],
+form input[type="telefono"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bcd4f0; /* Azul suave */
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    background-color: #f9fcff;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+form input[type="email"]:focus,
+form input[type="telefono"]:focus {
+    border-color: #1e3a8a; /* Azul oscuro */
+    outline: none;
+}
+
+/* Botón */
+form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #1e3a8a; /* Azul oscuro */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #163c72; /* Azul más oscuro */
+    transform: translateY(-2px);
+}
+
+/* Texto */
+font {
+    color: #333;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    form label {
+        font-size: 1em;
+    }
+
+    form button {
+        font-size: 1em;
+    }
+}

@@ -19,12 +19,18 @@
 			    <!-- bloque 1 usuarios anonimos no autorizados se quedan en la landing Page -->
 			    {% if not request.user.is_authenticated %}
 				    <li><a href="{% url 'home' %}"><font size="3" color="#0000FF">Inicio</font></a></li>
-                    <li><a href="{% url 'sobremi' %}"><font size="3" color="#0000FF">Sobre Mi</font></a></li>
-                    <li><a href="{% url 'habilidades' %}"><font size="3" color="#0000FF">Habilidades</font></a></li>
-				    <li><a href="{% url 'categorias' %}"><font size="3" color="#0000FF">Categorías</font></a></li>
-					<li><a href="{% url 'generar_curriculum' %}"><font size="3" color="#0000FF">Curriculum</font></a></li>
-					<li><a href="{% url 'lista_noticias' %}"><font size="3" color="#0000FF">Listar noticias</font></a></li>
-
+                    <!--<li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Mi Perfil <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">-->
+                            <li><a href="{% url 'sobremi' %}"><font size="3" color="#0000FF">Sobre Mi</font></a></li>
+                            <li><a href="{% url 'habilidades' %}"><font size="3" color="#0000FF">Habilidades</font></a></li>
+                            <li><a href="{% url 'categorias' %}"><font size="3" color="#0000FF">Categorías</font></a></li>
+                            <li><a href="{% url 'generar_curriculum' %}"><font size="3" color="#0000FF">Curriculum</font></a></li>
+                            <li><a href="{% url 'lista_noticias' %}"><font size="3" color="#0000FF">Listar noticias</font></a></li>
+                        <!--</ul>
+                    </li>-->
 				{% endif %}
 
 				<!-- bloque 2 usuarios autorizados -->
@@ -47,35 +53,28 @@
 				{% endif %}
             </ul>
 
-			<!-- inicio nuevo bloque para login y register-->
-			<ul class="nav navbar-nav navbar-right">
-			{% if request.user.is_authenticated %}
-				 <li><a href="{% url 'cerrar' %}"><font size="3" color="#0000FF">Cerrar Sesión</font></a></li>
-			{% endif %}
+			<!-- Botones para Registro, Entrar y Cerrar Sesión -->
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'cerrar' %}" class="btn btn-danger" style="margin: 5px;">
+                            <span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'register' %}" class="btn btn-success" style="margin: 5px;">
+                            <span class="glyphicon glyphicon-user"></span> Registro
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}" class="btn btn-primary" style="margin: 5px;">
+                            <span class="glyphicon glyphicon-log-in"></span> Entrar
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
 
-			{% if not request.user.is_authenticated %}
-			  <a class="btn btn-success" href="{% url 'register' %}" style="margin-top: 7px;">
-			           <font size="3" color="#686868">Registro</font>
-			  </a>
-			{% endif %}
-
-			</ul>
-			<!-- usuario anónimo -->
-			{% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
-			<form class='navbar-form navbar-right' method='POST' action='{% url "habilidades" %}'>
-			{% csrf_token %} <!-- control anti-hacker para formularios-->
-				<!--
-			<div class='form-group'>
-			   <input type='text' class='form-control' name='username' placeholder='nombre del usuario'/>
-			</div>
-			<div class='form-group'>
-			   <input type='password' class='form-control' name='password' placeholder='Clave'/>
-			</div>
-			-->
-			<a href='{% url "login" %}' class="btn btn-primary"
-			        style="color: #686868!important;background-color: #2E9AFE;font-size: 22px;">Entrar</a>
-			</form>
-			{% endif %}
         </div>
     </div>
 </nav>

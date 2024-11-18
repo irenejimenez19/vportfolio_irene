@@ -22,7 +22,7 @@
             <h3>
                 <!--                             modelo actual.foreign key.id del otro modelo-->
                 {{ entrevistador.empresa }} - {{ entrevistador.user.username }}
-                <a href="{% url 'generar_pdf' entrevistador.id %}">Generar PDF</a>
+                <a href="{% url 'generar_pdf' entre=entrevistador.id %}">Generar PDF</a>
             </h3>
         </li>
     {% endfor %}

@@ -1,4 +1,5 @@
 /* General Styles */
+/* Estilo general de la página */
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
@@ -7,6 +8,7 @@ body {
     padding: 0;
 }
 
+/* Titulares y párrafos */
 h1 {
     color: #1f4e79;
     font-size: 2.5em;
@@ -20,74 +22,7 @@ p {
     margin: 10px 0;
 }
 
-/* Centering and Spacing */
-center {
-    text-align: center;
-    margin: 0 auto;
-}
-
-/* Navbar Styling */
-.navbar {
-    background-color: #286090;
-    border: none;
-}
-
-.navbar a {
-    color: #fff !important;
-    font-weight: 500;
-}
-
-.navbar a:hover {
-    color: #d9edf7 !important;
-}
-
-/* Header and Banner Styling */
-header {
-    background-color: #1f4e79;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-/* Authentication Section */
-.auth-section {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.auth-section h1 {
-    color: #1c3d5a;
-}
-
-.auth-section img {
-    border-radius: 50%;
-    margin-top: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* User Info */
-.user {
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-}
-
-.user img.imgRedonda {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid #1f4e79;
-}
-
-/* Font Styling for Authenticated Message */
-.font-message {
-    color: #686868;
-    font-size: 1.3em;
-    font-family: 'Comic Sans MS', Arial, Verdana;
-    font-weight: bold;
-}
-
-/* Buttons */
+/* Botones generales */
 button, .btn-primary {
     background-color: #1f4e79;
     border-color: #1f4e79;
@@ -102,7 +37,15 @@ button:hover, .btn-primary:hover {
     background-color: #143352;
 }
 
-/* Image Styling */
+/* Encabezado */
+header {
+    background-color: #1f4e79;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Imágenes */
 img {
     border-radius: 8px;
     transition: transform 0.3s ease;
@@ -121,18 +64,16 @@ footer {
     font-size: 0.9em;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2em;
-    }
-
-    .user img.imgRedonda {
-        width: 60px;
-        height: 60px;
-    }
-
-    .font-message {
-        font-size: 1.1em;
-    }
+/* Asegurarse de que no colisione con el navbar */
+.navbar-home {
+    background-color: #286090;
 }
+
+.navbar-home a {
+    color: #fff !important;
+}
+
+.navbar-home a:hover {
+    color: #d9edf7 !important;
+}
+

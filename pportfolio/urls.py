@@ -46,6 +46,7 @@ urlpatterns = [
     path('video/editar/<int:video_id>/', views.editar_video, name='editar_video'),
     path('video/eliminar/<int:video_id>/', views.eliminar_video, name='eliminar_video'),
     path('contacto/', views.contacto, name='contacto'),
+    path('generar_pdf/<int:entre>/', views.generar_pdf, name='generar_pdf'),
     path('listar_entrevistadores/', views.listar_entrevistadores, name='listar_entrevistadores'),
     path('generar_curriculum/', views.generar_curriculum, name='generar_curriculum'),
     path('ver_curriculum/<int:id>/', views.ver_curriculum, name='ver_curriculum'),
