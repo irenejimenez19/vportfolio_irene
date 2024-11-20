@@ -1,0 +1,106 @@
+/* Estilo general */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F4F9FD; /* Fondo azul claro */
+    color: #2C3E50; /* Texto gris oscuro */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 3rem auto;
+}
+
+/* Título principal */
+h1 {
+    color: #2A6DA2; /* Azul oscuro */
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #DCE6F1; /* Línea decorativa */
+    padding-bottom: 0.5rem;
+}
+
+/* Etiquetas */
+label {
+    color: #3B88C3; /* Azul intermedio */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Campos de entrada */
+input[type="text"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #DCE6F1;
+    border-radius: 5px;
+    background-color: #F9FBFD; /* Azul muy claro */
+    transition: border 0.2s ease-in-out;
+}
+
+input[type="text"]:focus {
+    border: 1px solid #3B88C3; /* Azul intermedio */
+    outline: none;
+}
+
+/* Botón principal */
+button.btn-primary {
+    background-color: #3B88C3; /* Azul intermedio */
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button.btn-primary:hover {
+    background-color: #2A6DA2; /* Azul oscuro */
+}
+
+/* Sección de votación */
+.rating {
+    direction: rtl;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 2rem;
+    color: #DCE6F1; /* Gris claro */
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #FFC107; /* Amarillo dorado */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+}

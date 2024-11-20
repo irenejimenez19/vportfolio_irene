@@ -779,3 +779,56 @@ def crear_noticia(request):
             return HttpResponse("Error: El título y elc ontenido son obligatorios")
 
     return render(request, 'crear_noticia.html')
+#########################
+#   21. LISTAR VALORA.
+#########################
+
+def listar_valoraciones(request):
+    valoraciones = Valoracion.objects.all()
+    return render(request, 'list.html', {'valoraciones': valoraciones})
+
+#########################
+#  21. ACTUALIZAR VALORA.
+#########################
+
+def actualizar_valoracion(request, pk):
+    valoracion = get_object_or_404(Valoracion, pk=pk)
+    if request.method == 'POST':
+        votos_entrevista = int(request.POST.get('votos_entrevista', valoracion.votos_entrevista))
+        votos_empresa= int(request.POST.get('votos_empresa', valoracion.votos_empresa))
+
+        # Actualizar los votos y recalcular la media
+        valoracion.votos_entrevista = votos_entrevista
+        valoracion.votos_empresa = votos_empresa
+        valoracion.media_aspectos = (votos_entrevista + votos_empresa) / 2
+        valoracion.save()
+
+        return redirect('listar_valoraciones')
+
+    return render(request, 'update.html', {'valoracion': valoracion})
+
+#########################
+#   22. AÑADIR VALORA.
+#########################
+
+def añadir_valoracion(request):
+    if request.method == 'POST':
+        entrevista = request.POST.get('entrevista')
+        empresa = request.POST.get('empresa')
+        votos_entrevista = int(request.POST.get('votos_entrevista', 0))
+        votos_empresa = int(request.POST.get('votos_empresa', 0))
+
+        # Calcular la media de los aspectos
+        media_aspectos = (votos_entrevista + votos_empresa) / 2
+
+        # Crear y guardar la nueva valoración
+        nueva_valoracion = Valoracion.objects.create(
+            entrevista=entrevista,
+            empresa=empresa,
+            votos_entrevista=votos_entrevista,
+            votos_empresa=votos_empresa,
+            media_aspectos=media_aspectos
+        )
+        return redirect('listar_valoraciones')
+
+    return render(request, 'add.html')

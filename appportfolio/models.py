@@ -6,6 +6,8 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from django.utils import timezone
+
 # Create your models here.
 
 ################################################
@@ -243,3 +245,20 @@ class Noticia(models.Model):
 
     def __str__(self):
         return '%s' % (self.titulo)
+
+################################################
+# TABLA 13 - Valoraciones
+################################################
+
+class Valoracion(models.Model):
+    id = models.AutoField(primary_key=True)
+    votos_entrevista = models.DecimalField("Votos entrevista", max_digits=3, decimal_places=1, null=True, blank=True)
+    votos_empresa = models.DecimalField("Votos empresa", max_digits=3, decimal_places=1, null=True, blank=True)
+    media_aspectos = models.DecimalField("Media aspectos", max_digits=3, decimal_places=1, null=True, blank=True)
+    entrevista = models.CharField("Descripción Entrevista", max_length=200, null=True, blank=True)
+    empresa = models.CharField("Descripción Empresa", max_length=200, null=True, blank=True)
+    num_valoraciones = models.IntegerField("Num Valoraciones", null=True, blank=True)
+    timestamp = models.DateTimeField("Fecha", default=timezone.now)
+
+    def __str__(self):
+        return f"{self.id}, {self.votos_entrevista}, {self.votos_empresa}, {self.entrevista}, {self.empresa}, {self.timestamp}"

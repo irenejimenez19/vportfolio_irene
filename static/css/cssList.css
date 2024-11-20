@@ -1,0 +1,104 @@
+/* Estilo general */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F4F9FD; /* Fondo azul claro */
+    color: #2C3E50; /* Texto gris oscuro */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+    background-color: #FFFFFF; /* Fondo blanco */
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 3rem auto;
+}
+
+/* Título principal */
+h1 {
+    color: #2A6DA2; /* Azul oscuro */
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #DCE6F1; /* Línea decorativa */
+    padding-bottom: 0.5rem;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Encabezado de la tabla */
+table thead {
+    background-color: #3B88C3; /* Azul intermedio */
+    color: white;
+    text-align: left;
+    font-size: 1rem;
+}
+
+table thead th {
+    padding: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Cuerpo de la tabla */
+table tbody tr {
+    border-bottom: 1px solid #DCE6F1;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Filas alternadas */
+table tbody tr:nth-child(odd) {
+    background-color: #F9FBFD; /* Azul claro */
+}
+
+/* Efecto hover */
+table tbody tr:hover {
+    background-color: #DCE6F1; /* Azul más oscuro */
+}
+
+/* Celdas */
+table td {
+    padding: 0.8rem;
+    color: #2C3E50;
+    text-align: left;
+}
+
+/* Enlace de edición */
+table td a {
+    color: #3B88C3; /* Azul intermedio */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease-in-out;
+}
+
+table td a:hover {
+    color: #2A6DA2; /* Azul oscuro */
+    text-decoration: underline;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    table thead {
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+}

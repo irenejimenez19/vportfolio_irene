@@ -1,0 +1,94 @@
+/* Estilo general */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #eef2f3;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+/* Títulos */
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* Etiquetas */
+label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Botón de guardar */
+button.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+/* Sistema de valoraciones */
+.rating {
+    direction: rtl;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 2.2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffc107;
+    transform: scale(1.1);
+}
+
+/* Espaciado entre secciones */
+form > br {
+    margin-bottom: 20px;
+}
+
+/* Separador visual */
+hr {
+    border: none;
+    border-top: 1px solid #dee2e6;
+    margin: 20px 0;
+}

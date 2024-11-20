@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<title>PORTFOLIO</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssAdd.css' %}">
+
+<style>
+    .rating {
+        direction: rtl;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+        color: #ffc107;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="container mt-4">
+    <h1>Añadir Nueva Valoración</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Descripción de la Entrevista -->
+        <label for="entrevista">Descripción de la Entrevista:</label>
+        <input type="text" id="entrevista" name="entrevista" class="form-control" required>
+        <br>
+
+        <!-- Descripción de la Empresa -->
+        <label for="empresa">Descripción de la Empresa:</label>
+        <input type="text" id="empresa" name="empresa" class="form-control" required>
+        <br>
+
+        <!-- Votos Entrevista -->
+        <label>Votos Entrevista:</label>
+        <div class="rating">
+            {% for star in "54321" %}
+                <input type="radio" id="entrevista-{{ star }}" name="votos_entrevista" value="{{ star }}">
+                <label for="entrevista-{{ star }}" title="{{ star }} estrellas">&#9733;</label>
+            {% endfor %}
+        </div>
+        <br>
+
+        <!-- Votos Empresa -->
+        <label>Votos Empresa:</label>
+        <div class="rating">
+            {% for star in "54321" %}
+                <input type="radio" id="empresa-{{ star }}" name="votos_empresa" value="{{ star }}">
+                <label for="empresa-{{ star }}" title="{{ star }} estrellas">&#9733;</label>
+            {% endfor %}
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Añadir Valoración</button>
+    </form>
+</div>
+{% endblock content %}
