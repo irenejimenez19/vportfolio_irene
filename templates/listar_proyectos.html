@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<title>PORTFOLIO</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssListarProyectos.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Contenedor principal único sin contenedores extras -->
+<br><br><br><br>
+<div class="container1">
+    <h1>Listado de Proyectos</h1>
+    <!-- Botón para crear un nuevo proyecto -->
+    <a href="{% url 'crear_proyecto' %}" class="btn btn-primary mb-3">Crear nuevo proyecto</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Lenguaje</th>
+                <th>Tecnologías</th>
+                <th>Observaciones</th>
+                <th>Fecha Publicación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in proyectos %}
+                <tr>
+                    <td>{{ proyecto.id }}</td>
+                    <td>{{ proyecto.titulo }}</td>
+                    <td>{{ proyecto.lenguaje }}</td>
+                    <td>{{ proyecto.tecnologias }}</td>
+                    <td>{{ proyecto.observaciones }}</td>
+                    <td>{{ proyecto.fecha_publicacion|date:"j/m/Y" }}</td>
+                    <td>
+                        <!-- Botón para editar -->
+                        <a href="{% url 'editar_proyecto' proyecto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                        <!-- Botón para eliminar -->
+                        <a href="{% url 'eliminar_proyecto' proyecto.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que quieres eliminar este proyecto?');">Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">No hay proyectos registrados.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

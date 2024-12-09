@@ -7,39 +7,49 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 <link rel="stylesheet" href="{% static 'css/cssHome.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
  {% block content %}
+<!-- Sección Hero (Bienvenida) -->
+<br><br><br><br>
+<section class="hero">
+    <div class="hero-content">
+        <h1>¡Bienvenido a mi Portfolio!</h1>
+        <p>Hola, soy Irene. Una apasionada desarrolladora web. ¡Explora mis proyectos y habilidades!</p>
+        <a href="https://github.com/irenejimenez19" class="cta-button">Mi GitHub <i class="fas fa-arrow-down"></i></a>
+    </div>
+</section>
 
- {# {% include "carousel.html" %} #}
- <br><br><br><br>
-<center>
- {% if not request.user.is_authenticated %}
- <h1>PÁGINA DE INICIO</h1>
-   <!-- ><img src="{% static 'appportfolio/bootstrap/imagenes/marta.png'%}" height='340' width='390'>-->
-    <img src="{% static 'images/irene.png'%}" height='400' width='400'>
- {% endif %}
-</center>
+<!-- Sección Contacto -->
+<section id="contacto" class="contact">
+    <div class="contact-content">
+        <h2>Contacto</h2>
+        <p>Si estás interesado en colaborar en un proyecto o tienes alguna consulta, no dudes en ponerte en contacto conmigo.</p>
+        <a href="mailto:{{ correo }}" class="cta-button">Contáctame</a>
+    </div>
+</section>
 
- {% if request.user.is_authenticated %}
-  <center>
-      <br><br><br><br>
-  <font color="#686868" size="5" face="Comic Sans MS,Arial,Verdana">LISTADO DE ESTUDIOS OFICIALES</font>
-   </center>
- {% endif %}
-
-<!--
- {% if not request.user.is_authenticated %}
-  <a href="{% url 'login' %}">Login</a>
-  <a href="{% url 'register' %}">Register</a>
- {% else %}
- -->
-<center>
-  <div class="user d-inline-block">
-      <span><img alt="Avatar" src="{{fotoperfil}}" class="imgRedonda"/></span>
-  </div>
-  <p>Bienvenido, {{user.username}}!</p>
-</center>
- {% endif %}
+<!-- Sección Redes Sociales -->
+<section id="redes-sociales" class="social">
+    <div class="social-content">
+        <h2>Sígueme en mis Redes Sociales</h2>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/irene-jimenez-argomaniz" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/ireeneejimenezz_" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/irene" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</section>
 
 {% endblock content %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/gsap.min.js"></script>
+<script>
+    // Animaciones con GSAP
+    gsap.from('.hero h1', { opacity: 0, duration: 2, y: -100 });
+    gsap.from('.hero p', { opacity: 0, duration: 2, delay: 0.5, y: 50 });
+    gsap.from('.cta-button', { opacity: 0, duration: 2, delay: 1, x: 100 });
+</script>
+{% endblock scripts %}

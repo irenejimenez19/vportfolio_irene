@@ -28,6 +28,10 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 
+from django.http import JsonResponse
+
+from datetime import datetime
+
 import urllib
 
 # Create your views here.
@@ -610,8 +614,8 @@ def listar_entrevistadores(request):
 #     15. GENERAR PDF
 #########################
 
-def generar_pdf(request, entrevistador_id):
-    entrevistador = Entrevistador.objects.get(id=entrevistador_id) # select * from Entrevistador where id=xx
+def generar_pdf(request, entre):
+    entrevistador = Entrevistador.objects.get(id=entre) # select * from Entrevistador where id=xx
 
     # Crear una respuesta HTTP con contenido tipo PDF
     response = HttpResponse(content_type='application/pdf') # Para indicarle que es una página de formato PDF
@@ -716,16 +720,24 @@ def generar_pdfCV(request, id):
     # Información de contacto
     c.setFont("Helvetica", 12)
     c.setFillColor(colors.HexColor("#30639F"))
-    c.drawString(100, height - 130, f"Nombre: {curriculum.nombre}")
-    c.drawString(100, height - 130, f"Primer apellido: {curriculum.apellido1}")
-    c.drawString(100, height - 130, f"Segundo apellido: {curriculum.email}")
-    c.drawString(100, height - 130, f"Email: {curriculum.email}")
-    c.drawString(100, height - 150, f"Teléfono: {curriculum.telefono}")
+
+    # Ajustar la posición vertical
+    y_position = height - 130
+    c.drawString(100, y_position, f"Nombre: {curriculum.nombre}")
+    y_position -= 20  # Mover hacia abajo para la siguiente línea
+    c.drawString(100, y_position, f"Primer apellido: {curriculum.apellido1}")
+    y_position -= 20
+    c.drawString(100, y_position, f"Segundo apellido: {curriculum.apellido2}")
+    y_position -= 20
+    c.drawString(100, y_position, f"Email: {curriculum.email}")
+    y_position -= 20
+    c.drawString(100, y_position, f"Teléfono: {curriculum.telefono}")
 
     # Sección de estudios
     y_position = height - 200
     c.setFont("Helvetica-Bold", 14)
     c.setFillColor(colors.HexColor("#FFB343"))
+    y_position -= 40
     c.drawString(100, y_position, "Estudios:")
 
     y_position -= 20
@@ -832,3 +844,228 @@ def añadir_valoracion(request):
         return redirect('listar_valoraciones')
 
     return render(request, 'add.html')
+
+#########################
+#   23. CHAT VIEW
+#########################
+
+@login_required
+def chat_view(request, entrevistador_id):
+    entrevistador = get_object_or_404(Entrevistador, id=entrevistador_id)
+    mensajes = Mensaje.objects.filter(
+        (models.Q(remitente=request.user) & models.Q(destinatario=entrevistador.user)) |
+        (models.Q(remitente=entrevistador.user) & models.Q(destinatario=request.user))
+    )
+
+    # Agregar la propiedad 'clase' para usarla en el template
+    for mensaje in mensajes:
+        mensaje.clase = 'enviado' if mensaje.remitente == request.user else 'recibido'
+
+    # Renderizar solo el chat para la respuesta AJAX
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'mensajesHtml': render_to_string('chat_mensajes.html', {'mensajes': mensajes}),
+        })
+
+    return render(request, 'chat.html', {'entrevistador': entrevistador, 'mensajes': mensajes})
+
+#########################
+#   24. ENVIAR MENSAJE
+#########################
+
+@login_required
+def enviar_mensaje(request):
+    if request.method == 'POST':
+        contenido = request.POST.get('contenido')
+        destinatario_id = request.POST.get('destinatario_id')
+        destinatario = get_object_or_404(User, id=destinatario_id)
+
+        # Crear el mensaje enviado por el usuario
+        mensaje = Mensaje.objects.create(
+            remitente=request.user,
+            destinatario=destinatario,
+            contenido=contenido
+        )
+
+        # Respuestas automáticas basadas en palabras clave
+        respuestas_automaticas = {
+            "Hola": "Hola, ¿en qué puedo ayudarte?",
+            "Adiós": "Hasta luego, ¡que tengas un buen día!",
+            "Ayuda": "Claro, dime en qué necesitas ayuda."
+        }
+
+        respuesta = None
+        for palabra, respuesta_automatica in respuestas_automaticas.items():
+            if palabra.lower() in contenido.lower():
+                respuesta = respuesta_automatica
+                break
+
+        # Si hay una respuesta automática, crearla como mensaje
+        if respuesta:
+            Mensaje.objects.create(
+                remitente=destinatario,
+                destinatario=request.user,
+                contenido=respuesta
+            )
+
+        return JsonResponse({
+            'status': 'success',
+            'mensaje': mensaje.contenido,
+            'respuesta': respuesta,
+            'fecha_envio': mensaje.fecha_envio
+        })
+
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'})
+
+#########################
+#  25. SELECC. ENTREV.
+#########################
+
+@login_required
+def seleccionar_entrevistadores(request):
+    entrevistadores = Entrevistador.objects.all()
+    # Si el usuario está enviando un formulario, redirigir al chat con el entrevistador seleccionado
+    if request.method == 'POST':
+        entrevistador_id = request.POST.get('entrevistador_id')
+        return redirect('chat_view', entrevistador_id=entrevistador_id)
+    return render(request, 'seleccionar_entrevistador.html', {'entrevistadores': entrevistadores})
+
+#########################
+#    26. LISTAR TAREA
+#########################
+
+def listar_tareas(request):
+    tareas = Tarea.objects.all()
+    return render(request, 'listar_tareas.html', {'tareas': tareas})
+
+#########################
+#    27. CREAR TAREA
+#########################
+
+def crear_tarea(request):
+    if request.method == 'POST':
+        tarea = request.POST.get('tarea')
+        fecha = request.POST.get('fecha')
+        estado_id = request.POST.get('estado')
+        estado = get_object_or_404(Estado, id=estado_id)
+
+        Tarea.objects.create(tarea=tarea, fecha=fecha, estado=estado)
+        return redirect('listar_tareas')
+
+    estados = Estado.objects.all()
+    return render(request, 'crear_tarea.html', {'estados': estados})
+
+#########################
+#    28. EDITAR TAREA
+#########################
+
+def editar_tarea(request, tarea_id):
+    tarea = get_object_or_404(Tarea, id=tarea_id)
+    estados = Estado.objects.all()
+
+    if request.method == 'POST':
+        # Mantener los valores anteriores si no se cambian
+        nueva_tarea = request.POST.get('tarea', tarea.tarea)
+        nueva_fecha = request.POST.get('fecha', tarea.fecha)  # Mantener fecha si no se actualiza
+        nuevo_estado_id = request.POST.get('estado', tarea.estado.id)
+
+        # Actualizar la tarea
+        tarea.tarea = nueva_tarea
+        tarea.fecha = nueva_fecha
+        tarea.estado_id = nuevo_estado_id
+        tarea.save()
+
+        return redirect('listar_tareas')
+
+    return render(request, 'crear_tarea.html', {'tarea': tarea, 'estados': estados})
+
+#########################
+#   29. ELIMINAR TAREA
+#########################
+
+def eliminar_tarea(request, id):
+    tarea = get_object_or_404(Tarea, id=id)
+    tarea.delete()
+    return redirect('listar_tareas')
+
+#########################
+#  30. LISTAR PROYECTOS
+#########################
+
+def listar_proyectos(request):
+    proyectos = Proyecto.objects.all()
+    return render(request, 'listar_proyectos.html', {'proyectos': proyectos})
+
+#########################
+#   31. CREAR PROYECTO
+#########################
+
+def crear_proyecto(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        lenguaje = request.POST.get('lenguaje')
+        tecnologias = request.POST.get('tecnologias')
+        observaciones = request.POST.get('observaciones')
+        fecha_publicacion = request.POST.get('fecha_publicacion')
+
+        # Convertir fecha_publicacion a un objeto datetime (si existe)
+        #if fecha_publicacion:
+         #   try:
+          #      fecha_publicacion = datetime.strptime(fecha_publicacion, '%Y-%m-%d %H:%M:%S')
+           # except ValueError:
+            #    fecha_publicacion = None  # Manejar error en el formato de fecha
+
+        Proyecto.objects.create(titulo=titulo, lenguaje=lenguaje, tecnologias=tecnologias, observaciones=observaciones, fecha_publicacion=fecha_publicacion)
+        return redirect('listar_proyectos')
+
+    return render(request, 'crear_proyecto.html')
+
+#########################
+#   32. EDITAR PROYECTO
+#########################
+
+def editar_proyecto(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
+
+    if request.method == 'POST':
+        # Mantener los valores anteriores si no se cambian
+        nuevo_titulo = request.POST.get('titulo', proyecto.titulo)
+        nuevo_lenguaje = request.POST.get('lenguaje', proyecto.lenguaje)
+        nueva_tecnologia = request.POST.get('tecnologias', proyecto.tecnologias)
+        nueva_observacion = request.POST.get('observaciones', proyecto.observaciones)
+        proyecto.fecha_publicacion = request.POST.get('fecha_publicacion')
+
+        # Actualizar solo si hay cambios
+        #if nuevo_titulo:
+         #   proyecto.titulo = nuevo_titulo
+        #if nuevo_lenguaje:
+         #   proyecto.lenguaje = nuevo_lenguaje
+        #if nueva_tecnologia:
+         #   proyecto.tecnologias = nueva_tecnologia
+        #if nueva_observacion:
+         #   proyecto.observaciones = nueva_observacion
+        #if nueva_fecha_publicacion:
+         #   try:
+          #      proyecto.fecha_publicacion = datetime.strptime(nueva_fecha_publicacion, '%Y-%m-%d %H:%M:%S')
+           # except ValueError:
+            #    pass  # Ignorar si la fecha tiene un formato incorrecto
+
+        # Actualizar el proyecto
+        proyecto.titulo = nuevo_titulo
+        proyecto.lenguaje = nuevo_lenguaje
+        proyecto.tecnologias = nueva_tecnologia
+        proyecto.observaciones = nueva_observacion
+        proyecto.save()
+
+        return redirect('listar_proyectos')
+
+    return render(request, 'editar_proyecto.html', {'proyecto': proyecto})
+
+#########################
+#  29. ELIMINAR PROYECTO
+#########################
+
+def eliminar_proyecto(request, id):
+    proyecto = get_object_or_404(Proyecto, id=id)
+    proyecto.delete()
+    return redirect('listar_proyectos')

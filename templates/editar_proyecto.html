@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<title>PORTFOLIO</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssTarea.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Editar Proyecto</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" class="form-control" value="{{ proyecto.titulo }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lenguaje">Lenguaje Principal:</label>
+                <input type="text" id="lenguaje" name="lenguaje" class="form-control" value="{{ proyecto.lenguaje }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tecnologias">Tecnologías:</label>
+                <input type="text" id="tecnologias" name="tecnologias" class="form-control" value="{{ proyecto.tecnologias }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones:</label>
+                <input type="text" id="observaciones" name="observaciones" class="form-control" value="{{ proyecto.observaciones }}">
+            </div>
+
+            <div class="form-group">
+                <label for="fecha_publicacion">Fecha de Publicación:</label>
+                <input type="date" id="fecha_publicacion" name="fecha_publicacion" class="form-control" value="{{ proyecto.fecha_publicacion|date:'Y-m-d' }}">
+            </div>
+
+            <!-- Botón para guardar cambios -->
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            <!-- Botón para volver al listado -->
+            <a href="{% url 'listar_proyectos' %}" class="btn btn-secondary ml-2">Volver al listado</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,125 @@
+/* Estilos globales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e8f4fc; /* Fondo azul suave */
+    color: #333; /* Color de texto oscuro para mejor legibilidad */
+    margin: 0;
+    padding: 0;
+    font-size: 1rem; /* Aumento del tamaño de la fuente */
+}
+
+/* Contenedor principal con fondo blanco */
+.container1 {
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    padding: 30px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 1200px;
+    margin: 20px auto; /* Centrado */
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.5rem; /* Aumento del tamaño del título */
+    color: #1a73e8; /* Azul brillante */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #1a73e8;
+    border-color: #1a73e8;
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px; /* Botones más grandes */
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease, transform 0.2s;
+    border-radius: 5px; /* Bordes redondeados para los botones */
+}
+
+.btn-primary:hover {
+    background-color: #0c56b8; /* Azul más oscuro al pasar el cursor */
+    transform: scale(1.05); /* Efecto de "zoom" */
+}
+
+.btn-warning {
+    background-color: #f1c40f;
+    border-color: #f1c40f;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn-warning:hover {
+    background-color: #d4ac0d;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Tablas */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.table th {
+    background-color: #1a73e8; /* Azul brillante para encabezados */
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #0c56b8; /* Línea separadora */
+}
+
+.table td {
+    text-align: center;
+    padding: 15px;
+    font-size: 1.1rem; /* Aumento de tamaño de fuente */
+    border: 1px solid #ddd; /* Bordes ligeros */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f7f7f7; /* Alternancia de filas */
+}
+
+.table tr:hover {
+    background-color: #f1f9ff; /* Resaltar al pasar el cursor */
+}
+
+/* Mensaje vacío */
+.table td[colspan] {
+    color: #666;
+    font-style: italic;
+}
+
+/* Enlaces */
+a {
+    text-decoration: none;
+    font-size: 1.1rem; /* Aumento de tamaño de la fuente */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Margen para botones */
+.mb-3 {
+    margin-bottom: 20px;
+}

@@ -1,87 +1,99 @@
-/* Estilos Generales del contenido */
-body {
+/* Fondo de la sección principal */
+.entrevistadores-container {
+    background-color: #f0f8ff; /* Azul claro */
+    padding: 40px;
+    margin: 30px auto;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
-    color: #2C3E50;
-    background-color: #F4F9FD; /* Azul claro de fondo */
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
 }
 
-/* Título principal dentro del bloque de contenido */
-.center-title {
-    color: #2A6DA2; /* Azul oscuro */
-    font-size: 2.2rem;
-    font-weight: 600;
-    margin-top: 2rem;
+/* Título principal */
+.entrevistadores-container h2 {
     text-align: center;
+    color: #004080; /* Azul oscuro */
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-/* Subtítulo dentro del bloque de contenido */
-h2 {
-    /*text-align: left;*/
-    font-size: 1.8rem;
-    color: #3B88C3; /* Azul intermedio */
-    margin-top: 1.5rem;
-    font-weight: 500;
+/* Subtítulos o encabezados */
+.entrevistadores-container h3 {
+    font-size: 18px;
+    color: #0056b3; /* Azul vibrante */
+    margin-bottom: 10px;
+    font-weight: normal;
 }
 
-/* Lista de Entrevistadores */
-ul.entrevistadores-list {
-    list-style: none;
+/* Lista de entrevistadores */
+.entrevistadores-container ul {
+    list-style-type: none;
     padding: 0;
-    max-width: 600px;
-    margin: 2rem auto;
 }
 
-ul.entrevistadores-list li {
-    background-color: #FFFFFF;
-    border: 1px solid #DCE6F1; /* Borde gris claro */
-    padding: 1.2rem;
-    margin-bottom: 1rem;
+.entrevistadores-container ul li {
+    background-color: #e6f2ff; /* Azul pastel */
+    border: 1px solid #80bfff; /* Azul intermedio */
+    padding: 15px;
+    margin-bottom: 15px;
     border-radius: 8px;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-ul.entrevistadores-list li:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.entrevistadores-container ul li:hover {
+    background-color: #cce7ff; /* Azul más vibrante */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
-ul.entrevistadores-list li h3 {
-    font-size: 1.3rem;
-    color: #2C3E50; /* Gris oscuro */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-}
-
-ul.entrevistadores-list li a {
+/* Enlaces de acción (Generar PDF) */
+.entrevistadores-container ul li a {
     text-decoration: none;
-    font-size: 1rem;
-    color: #3498DB; /* Azul vivo */
-    font-weight: 500;
-    transition: color 0.2s ease;
+    color: #ffffff;
+    background-color: #0056b3; /* Azul vibrante */
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-ul.entrevistadores-list li a:hover {
-    color: #1F639E; /* Azul más oscuro */
+.entrevistadores-container ul li a:hover {
+    background-color: #003366; /* Azul más oscuro */
+    transform: scale(1.05);
 }
 
-/* Mensaje de acceso para usuarios no autenticados */
-h4.login-message {
+/* Mensaje de autenticación */
+.entrevistadores-container h4 {
     text-align: center;
-    color: #5A5A5A;
-    font-size: 1.2rem;
-    margin-top: 1.5rem;
+    color: #cc3300; /* Rojo suave */
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: normal;
 }
 
-/* Ajuste de links */
-a {
-    text-decoration: none;
-    color: #3498DB;
-}
+/* Responsividad */
+@media (max-width: 768px) {
+    .entrevistadores-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
 
-a:hover {
-    color: #1A5276;
+    .entrevistadores-container h2 {
+        font-size: 20px;
+    }
+
+    .entrevistadores-container h3 {
+        font-size: 16px;
+    }
+
+    .entrevistadores-container ul li {
+        padding: 10px;
+    }
+
+    .entrevistadores-container ul li a {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
 }

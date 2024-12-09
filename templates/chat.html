@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<title>PORTFOLIO</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/cssChatting.css' %}">
+{% endblock %}
+
+{% block content %}
+<br><br><br><br>
+<div class="container mt-4">
+    <h1>Chat con {{ entrevistador.empresa }}</h1>
+
+    <div id="chat-box">
+        <div class="mensaje {{ mensaje.clase }}">
+            <p>{{ mensaje.contenido }}</p>
+            <small>{{ mensaje.fecha_envio|date:"d M Y H:i" }}</small>
+        </div>
+    </div>
+
+    <!-- Mostrar palabras clave -->
+    <div class="palabras-clave">
+        <h5>Palabras clave:</h5>
+        <ul>
+            <li>"Hola": Respuesta automática de saludo.</li>
+            <li>"Adiós": Respuesta automática de despedida.</li>
+            <li>"Ayuda": Ofrece ayuda.</li>
+        </ul>
+    </div>
+
+    <form id="mensaje-form">
+        <textarea name="contenido" placeholder="Escribe un mensaje"></textarea>
+        <input type="hidden" name="destinatario_id" value="{{ entrevistador.user.id }}">
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Enviar mensaje
+    $('#mensaje-form').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: "{% url 'enviar_mensaje' %}",
+        type: "POST",
+        data: $(this).serialize(),
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(response) {
+            if (response.status === 'success') {
+                const mensajeHtml = `
+                <div class="mensaje enviado">
+                    <p>${response.mensaje}</p>
+                    <small>${response.fecha_envio}</small>
+                </div>`;
+                $('#chat-box').append(mensajeHtml);
+
+                // Añadir la respuesta automática, si existe
+                if (response.respuesta) {
+                    const respuestaHtml = `
+                    <div class="mensaje recibido">
+                        <p>${response.respuesta}</p>
+                        <small>${new Date().toLocaleString()}</small>
+                    </div>`;
+                    $('#chat-box').append(respuestaHtml);
+                }
+
+                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight); // Scroll al final
+                $('textarea[name="contenido"]').val(''); // Limpiar textarea
+            }
+        }
+    });
+});
+
+
+    // Polling: actualizar los mensajes cada 5 segundos
+    function cargarMensajes() {
+        $.ajax({
+            url: "{% url 'chat_view' entrevistador.id %}",
+            type: "GET",
+            success: function(response) {
+                $('#chat-box').html(response.mensajesHtml);
+                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight); // Scroll al último mensaje
+            }
+        });
+    }
+
+    // Iniciar polling
+    setInterval(cargarMensajes, 5000);
+</script>
+{% endblock scripts %}

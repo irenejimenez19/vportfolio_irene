@@ -262,3 +262,74 @@ class Valoracion(models.Model):
 
     def __str__(self):
         return f"{self.id}, {self.votos_entrevista}, {self.votos_empresa}, {self.entrevista}, {self.empresa}, {self.timestamp}"
+
+################################################
+# TABLA 14 - Mensajes
+################################################
+
+class Mensaje(models.Model):
+    remitente = models.ForeignKey(User, related_name='mensajes_enviados', on_delete=models.CASCADE)
+    destinatario = models.ForeignKey(User, related_name='mensajes_recibidos', on_delete=models.CASCADE)
+    contenido = models.TextField('Contenido del mensaje')
+    fecha_envio = models.DateTimeField(verbose_name='Fecha de envío', auto_now_add=True)
+    leido = models.BooleanField(verbose_name='Leído', default=False)
+
+    class Meta:
+        ordering = ['fecha_envio']
+
+    def __str__(self):
+        return f"De: {self.remitente.username} Para: {self.destinatario.username} - {self.contenido[:30]}"
+
+################################################
+# TABLA 15 - Estados
+################################################
+
+class Estado(models.Model):
+    id = models.AutoField(primary_key=True)
+    estado = models.TextField('Estado', max_length=50, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Estado'  # puede ser otro nombre
+        verbose_name_plural = 'Estados'
+        ordering = ['id']
+
+    def __str__(self):
+        return f"{self.id}, {self.estado}"
+
+################################################
+# TABLA 16 - Tareas
+################################################
+
+class Tarea(models.Model):
+    id = models.AutoField(primary_key=True)
+    tarea = models.TextField('Tarea', max_length=50, null=True, blank=True)
+    fecha = models.DateField(verbose_name='Fecha', null=True, blank=True)
+    estado = models.ForeignKey(Estado, related_name='estado_tarea', null=True, blank=True, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = 'Tarea'  # puede ser otro nombre
+        verbose_name_plural = 'Tareas'
+        ordering = ['fecha']
+
+    def __str__(self):
+        return f"{self.id}, {self.tarea}, {self.fecha}, {self.estado}"
+
+################################################
+# TABLA 17 - Proyectos
+################################################
+
+class Proyecto(models.Model):
+    id = models.AutoField(primary_key=True)
+    titulo = models.CharField("Título proyecto", max_length=50, null=True, blank=True)
+    lenguaje = models.CharField("Lenguaje principal", max_length=30, null=True, blank=True)
+    tecnologias = models.CharField("Tecnologías", max_length=100, null=True, blank=True)
+    observaciones = models.CharField('Observaciones', max_length=100, null=True, blank=True)
+    fecha_publicacion = models.DateTimeField("Fecha publicación", null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Proyecto'  # puede ser otro nombre
+        verbose_name_plural = 'Proyectos'
+        ordering = ['id']
+
+    def __str__(self):
+        return f"{self.id}, Llamado: {self.titulo}, Usando principalmente: {self.lenguaje} y {self.tecnologias}, Observaciones: {self.observaciones}, Fecha: {self.fecha_publicacion}"
